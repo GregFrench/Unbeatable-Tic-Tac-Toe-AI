@@ -104,7 +104,7 @@ function utility(state) {
     return 0;
 }
 
-function maxValue(state) {
+function maxValue(state, alpha, beta) {
     if (gameOver(state)) {
         return [utility(state), null];
     }
@@ -117,7 +117,7 @@ function maxValue(state) {
             if (state[i][j] === '') {
                 state[i][j] = getPlayerTurn(state);
 
-                let [v2, a2] = minValue(state);
+                let [v2, a2] = minValue(state, alpha, beta);
 
                 if (v2 > v) {
                     v = v2;
@@ -125,9 +125,14 @@ function maxValue(state) {
                         row: i,
                         col: j,
                     };
+                    alpha = Math.max(alpha, v);
                 }
 
                 state[i][j] = '';
+
+                if (v >= beta) {
+                    return [v, move];
+                }
             }
         }
     }
@@ -135,7 +140,7 @@ function maxValue(state) {
     return [v, move];
 }
 
-function minValue(state) {
+function minValue(state, alpha, beta) {
     if (gameOver(state)) {
         return [utility(state), null];
     }
@@ -148,7 +153,7 @@ function minValue(state) {
             if (state[i][j] === '') {
                 state[i][j] = getPlayerTurn(state);
 
-                let [v2, a2] = maxValue(state);
+                let [v2, a2] = maxValue(state, alpha, beta);
 
                 if (v2 < v) {
                     v = v2;
@@ -156,9 +161,14 @@ function minValue(state) {
                         row: i,
                         col: j,
                     };
+                    beta = Math.min(beta, v);
                 }
 
                 state[i][j] = '';
+
+                if (v <= alpha) {
+                    return [v, move];
+                }
             }
         }
     }
@@ -166,10 +176,10 @@ function minValue(state) {
     return [v, move];
 }
 
-function minimax() {
+function minimaxAlphaBeta() {
     let state = JSON.parse(JSON.stringify(board));
 
-    let [value, move] = maxValue(state);
+    let [value, move] = maxValue(state, -Infinity, Infinity);
 
     return move;
 }
@@ -200,7 +210,7 @@ $('.cell').click(function() {
         } else {
             player = 'O';
 
-            let move = minimax();
+            let move = minimaxAlphaBeta();
 
             player = 'O';
 
