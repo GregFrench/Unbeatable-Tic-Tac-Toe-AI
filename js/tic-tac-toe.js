@@ -184,6 +184,10 @@ function minimaxAlphaBeta() {
     return move;
 }
 
+function updateModal(title) {
+    $("#modal-title").text(title);
+}
+
 $('.cell').click(function() {
     if ($(this).text() === '') {
         $(this).text(player);
@@ -194,14 +198,18 @@ $('.cell').click(function() {
         board[row-1][col-1] = player;
 
         if (checkWinner(board)) {
-            alert(player + ' wins!');
+            updateModal(player + ' wins!');
+
+            $('#modal').modal('show');
 
             playerOneWins++;
 
             updateScore();
             resetBoard();
         } else if (checkDraw(board)) {
-            alert('Draw!');
+            updateModal('Draw!');
+
+            $('#modal').modal('show');
 
             numDraws++;
 
@@ -221,14 +229,18 @@ $('.cell').click(function() {
             $('.cell[data-row="' + (move.row + 1) + '"][data-col="' + (move.col + 1) + '"]').text(player);
 
             if (checkWinner(board)) {
-                alert(player + ' wins!');
+                updateModal(player + ' wins!');
+
+                $('#modal').modal('show');
 
                 playerTwoWins++;
 
                 updateScore();
                 resetBoard();
             } else if (checkDraw(board)) {
-                alert('Draw!');
+                updateModal('Draw!');
+
+                $('#modal').modal('show');
     
                 numDraws++;
     
