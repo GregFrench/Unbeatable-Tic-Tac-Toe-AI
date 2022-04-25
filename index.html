@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Tic Tac Toe AI</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Tic Tac Toe AI</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="game-board">
+                        <div class="row">
+                            <div data-row="1" data-col="1" class="cell"></div>
+                            <div data-row="1" data-col="2" class="cell"></div>
+                            <div data-row="1" data-col="3" class="cell"></div>
+                        </div>
+                        <div class="row">
+                            <div data-row="2" data-col="1" class="cell"></div>
+                            <div data-row="2" data-col="2" class="cell"></div>
+                            <div data-row="2" data-col="3" class="cell"></div>
+                        </div>
+                        <div class="row">
+                            <div data-row="3" data-col="1" class="cell"></div>
+                            <div data-row="3" data-col="2" class="cell"></div>
+                            <div data-row="3" data-col="3" class="cell"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="game-info">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="player-info text-center">
+                                    <h3>Player 1</h3>
+                                    <div class="player-score">
+                                        <span id="player-1-score">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="player-info text-center">
+                                    <h3>Player 2</h3>
+                                    <div class="player-score">
+                                        <span id="player-2-score">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="player-info text-center">
+                                    <h3>Draws</h3>
+                                    <div class="player-score">
+                                        <span id="draw-score">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/tic-tac-toe.js"></script>
+    </body>
+</html>
