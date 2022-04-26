@@ -308,7 +308,7 @@ $('.cell').click(function() {
 
             updateScore();
         } else if (checkDraw(board)) {
-            updateModal('Draw!');
+            updateModal('It\'s a Draw!');
 
             $('#modal').modal('show');
 
@@ -335,7 +335,7 @@ $('.cell').click(function() {
 
                 updateScore();
             } else if (checkDraw(board)) {
-                updateModal('Draw!');
+                updateModal('It\'s a Draw!');
 
                 $('#modal').modal('show');
     
