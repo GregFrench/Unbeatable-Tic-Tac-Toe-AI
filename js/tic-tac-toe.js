@@ -188,6 +188,12 @@ function updateModal(title) {
     $("#modal-title").text(title);
 }
 
+$('.new-game').click(function() {
+    resetBoard();
+    player = 'X';
+    $('#modal').modal('hide')
+});
+
 $('.cell').click(function() {
     if ($(this).text() === '') {
         $(this).text(player);
@@ -205,7 +211,6 @@ $('.cell').click(function() {
             playerOneWins++;
 
             updateScore();
-            resetBoard();
         } else if (checkDraw(board)) {
             updateModal('Draw!');
 
@@ -214,15 +219,12 @@ $('.cell').click(function() {
             numDraws++;
 
             updateScore();
-            resetBoard();
         } else {
             player = 'O';
 
             let move = minimaxAlphaBeta();
 
             player = 'O';
-
-            console.log(move)
 
             board[move.row][move.col] = player;
 
@@ -236,7 +238,6 @@ $('.cell').click(function() {
                 playerTwoWins++;
 
                 updateScore();
-                resetBoard();
             } else if (checkDraw(board)) {
                 updateModal('Draw!');
 
@@ -245,7 +246,6 @@ $('.cell').click(function() {
                 numDraws++;
     
                 updateScore();
-                resetBoard();
             }
 
             player = 'X';
