@@ -8,6 +8,13 @@ let board = [
     ['', '', ''],
 ];
 
+/**
+ * Checks to see if a row is full.
+ *
+ * @param {Array} state - The current state of the board.
+ * 
+ * @returns {Boolean} - True if a row is full, false otherwise.
+ */
 function checkRow(state) {
     for (let i = 0; i < 3; i++) {
         if (state[i][0] === state[i][1] && state[i][1] === state[i][2] && state[i][0] !== '') {
@@ -18,6 +25,13 @@ function checkRow(state) {
     return false;
 }
 
+/**
+ * Checks to see if a column is full.
+ *
+ * @param {Array} state - The current state of the board.
+ *
+ * @returns {Boolean} - True if a column is full, false otherwise.
+ */
 function checkCol(state) {
     for (let i = 0; i < 3; i++) {
         if (state[0][i] === state[1][i] && state[1][i] === state[2][i] && state[0][i] !== '') {
@@ -28,6 +42,13 @@ function checkCol(state) {
     return false;
 }
 
+/**
+ * Checks to see if a diagonal is full.
+ *
+ * @param {Array} state - The current state of the board.
+ *
+ * @returns {Boolean} - True if a diagonal is full, false otherwise.
+ */
 function checkDiagonal(state) {
     if (state[0][0] === state[1][1] && state[1][1] === state[2][2] && state[0][0] !== '') {
         return true;
@@ -38,10 +59,24 @@ function checkDiagonal(state) {
     return false;
 }
 
+/**
+ * Checks to see if a player has won.
+ *
+ * @param {Array} state - The current state of the board.
+ *
+ * @returns {Boolean} - True if a player has won, false otherwise.
+ */
 function checkWinner(state) {
     return checkRow(state) || checkCol(state) || checkDiagonal(state);
 }
 
+/**
+ * Checks to see if there is a draw.
+ * 
+ * @param {Array} state - The current state of the board.
+ * 
+ * @returns {Boolean} - True if there is a draw, false otherwise.
+ */
 function checkDraw(state) {
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
@@ -54,16 +89,29 @@ function checkDraw(state) {
     return true;
 }
 
+/**
+ * Checks to see if the game is over.
+ *
+ * @param {Array} state - The current state of the board.
+ *
+ * @returns {Boolean} - True if the game is over, false otherwise.
+ */
 function gameOver(state) {
     return checkWinner(state) || checkDraw(state);
 }
 
+/**
+ * Updates the score board with the current state.
+ */
 function updateScore() {
     $("#player-1-score").text(playerOneWins);
     $("#player-2-score").text(playerTwoWins);
     $("#draw-score").text(numDraws);
 }
 
+/**
+ * Resets the board.
+ */
 function resetBoard() {
     board = [
         ['', '', ''],
@@ -74,6 +122,13 @@ function resetBoard() {
     $(".cell").text("");
 }
 
+/**
+ * Computes who goes next given the current state of the board.
+ * 
+ * @param {Array} state - The current state of the board.
+ * 
+ * @returns {String} - The player who goes next.
+ */
 function getPlayerTurn(state) {
     let count = 0;
 
@@ -92,6 +147,13 @@ function getPlayerTurn(state) {
     }
 }
 
+/**
+ * Utility function for the minimax algorithm.
+ *
+ * @param {Array} state - The current state of the board.
+ *
+ * @returns {Number} - The utility value of the state.
+ */
 function utility(state) {
     if (checkWinner(state)) {
         if (getPlayerTurn(state) === 'X') {
@@ -104,6 +166,15 @@ function utility(state) {
     return 0;
 }
 
+/**
+ * Helper function for the minimax algorithm.
+ *
+ * @param {Array} state - The current state of the board. 
+ * @param {Number} alpha - The alpha value. 
+ * @param {Number} beta - The beta value.
+ *
+ * @returns {Array} - The utility value of the state and the move to make.
+ */
 function maxValue(state, alpha, beta) {
     if (gameOver(state)) {
         return [utility(state), null];
@@ -140,6 +211,15 @@ function maxValue(state, alpha, beta) {
     return [v, move];
 }
 
+/**
+ * Helper function for the minimax algorithm.
+ *
+ * @param {Array} state - The current state of the board. 
+ * @param {Number} alpha - The alpha value. 
+ * @param {Number} beta - The beta value.
+ *
+ * @returns {Array} - The utility value of the state and the move to make.
+ */
 function minValue(state, alpha, beta) {
     if (gameOver(state)) {
         return [utility(state), null];
@@ -176,6 +256,11 @@ function minValue(state, alpha, beta) {
     return [v, move];
 }
 
+/**
+ * The main handler for the minimax algorithm.
+ *
+ * @returns {Object} - The move to make.
+ */
 function minimaxAlphaBeta() {
     let state = JSON.parse(JSON.stringify(board));
 
@@ -184,16 +269,27 @@ function minimaxAlphaBeta() {
     return move;
 }
 
+/**
+ * Updates the modal with the current state.
+ *
+ * @param {String} title - The title of the modal.
+ */
 function updateModal(title) {
     $("#modal-title").text(title);
 }
 
+/**
+ * Handles the click event for starting a new game.
+ */
 $('.new-game').click(function() {
     resetBoard();
     player = 'X';
     $('#modal').modal('hide')
 });
 
+/**
+ * Handles the click event for clicking on a tic tac toe cell.
+ */
 $('.cell').click(function() {
     if ($(this).text() === '') {
         $(this).text(player);
